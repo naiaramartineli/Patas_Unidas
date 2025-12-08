@@ -1,17 +1,17 @@
-// src/models/userModel.js
 const pool = require('../config/db');
 
 // ======================================================
-// 1. CRIA ENDEREÇO
+// 1. CRIA ENDEREÇO PARA USUÁRIO (após solicitação de adoção)
 // ======================================================
-async function criarEndereco(endereco) {
-  const sql = `
+async function criarEnderecoParaUsuario(idUsuario, endereco) {
+  const sqlEndereco = `
     INSERT INTO endereco (
       logradouro, bairro, numero, complemento, cidade, uf, cep
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const params = [
+  const paramsEndereco = [
     endereco.logradouro,
     endereco.bairro,
     endereco.numero,
@@ -21,14 +21,27 @@ async function criarEndereco(endereco) {
     endereco.cep
   ];
 
-  const [result] = await pool.execute(sql, params);
-  return result.insertId;
+  const [enderecoResult] = await pool.execute(sqlEndereco, paramsEndereco);
+  const idEndereco = enderecoResult.insertId;
+
+  // 2. Vincular endereço ao usuário
+  const sqlVinculo = `
+    UPDATE usuario
+    SET id_endereco = ?
+    WHERE id_usuario = ?
+  `;
+
+  await pool.execute(sqlVinculo, [idEndereco, idUsuario]);
+
+  return idEndereco;
 }
 
+
 // ======================================================
-// 2. CRIA USUÁRIO (id_permissao sempre = 3)
+// 2. CRIA USUÁRIO (SEM ENDEREÇO)
+//    id_permissao SEMPRE = 3
 // ======================================================
-async function criarUsuario(dadosUsuario, idEndereco) {
+async function criarUsuario(dadosUsuario) {
   const sql = `
     INSERT INTO usuario (
       id_endereco,
@@ -40,11 +53,10 @@ async function criarUsuario(dadosUsuario, idEndereco) {
       cpf,
       createdAt
     )
-    VALUES (?, 3, ?, ?, ?, ?, ?, NOW())
+    VALUES (NULL, 3, ?, ?, ?, ?, ?, NOW())
   `;
 
   const params = [
-    idEndereco,
     dadosUsuario.nome,
     dadosUsuario.sobrenome,
     dadosUsuario.nome_social || null,
@@ -55,6 +67,7 @@ async function criarUsuario(dadosUsuario, idEndereco) {
   const [result] = await pool.execute(sql, params);
   return result.insertId;
 }
+
 
 // ======================================================
 // 3. CRIA LOGIN DO USUÁRIO
@@ -79,6 +92,7 @@ async function criarLogin(dadosLogin, idUsuario) {
   return result.insertId;
 }
 
+
 // ======================================================
 // 4. Buscar usuário pelo email (autenticação)
 // ======================================================
@@ -99,8 +113,9 @@ async function buscarUsuarioPorEmail(email) {
   return rows[0];
 }
 
+
 // ======================================================
-// 5. ADMIN → Atualizar qualquer usuário
+// 5. ADMIN → Atualizar qualquer usuário (inclui permissão)
 // ======================================================
 async function adminAtualizarUsuario(idUsuario, dados) {
   const sql = `
@@ -114,7 +129,7 @@ async function adminAtualizarUsuario(idUsuario, dados) {
     WHERE id_usuario = ?
   `;
 
-  const [result] = await pool.execute(sql, [
+  const params = [
     dados.nome,
     dados.sobrenome,
     dados.nome_social || null,
@@ -122,10 +137,12 @@ async function adminAtualizarUsuario(idUsuario, dados) {
     dados.cpf,
     dados.id_permissao,
     idUsuario
-  ]);
+  ];
 
+  const [result] = await pool.execute(sql, params);
   return result.affectedRows > 0;
 }
+
 
 // ======================================================
 // 6. ADMIN → Listar usuários por permissão
@@ -153,26 +170,15 @@ async function listarUsuariosPorPermissao(idPermissao) {
   return rows;
 }
 
-// ======================================================
-// 7. ADMIN → Alterar permissão de usuário
-// ======================================================
-async function alterarPermissaoUsuario(idUsuario, novaPermissao) {
-  const sql = `
-    UPDATE usuario
-    SET id_permissao = ?
-    WHERE id_usuario = ?
-  `;
 
-  const [result] = await pool.execute(sql, [novaPermissao, idUsuario]);
-  return result.affectedRows > 0;
-}
-
+// ======================================================
+// EXPORTS
+// ======================================================
 module.exports = {
-  criarEndereco,
   criarUsuario,
   criarLogin,
   buscarUsuarioPorEmail,
   adminAtualizarUsuario,
   listarUsuariosPorPermissao,
-  alterarPermissaoUsuario
+  criarEnderecoParaUsuario
 };

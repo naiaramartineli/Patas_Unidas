@@ -1,32 +1,53 @@
 // src/routes/userRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const userController = require('../controllers/userController');
-const { autenticar, exigirPermissao } = require('../middleware/authMiddleware');
+const userController = require("../controllers/userController");
+const autenticar = require("../middleware/authMiddleware");
 
-// Cadastro
-router.post('/registrar', userController.registrarUsuario);
+// ======================================================================
+// ROTAS DE USUÁRIO
+// ======================================================================
 
-// Admin → atualizar qualquer usuário
-router.put('/admin/update/:id',
-  autenticar,
-  exigirPermissao(1),
-  userController.adminUpdate
+// 📌 Registro de usuário (sem endereço)
+router.post("/registrar", userController.registrarUsuario);
+
+// 📌 Login
+router.post("/login", userController.login);
+
+// ======================================================================
+// ROTAS QUE EXIGEM LOGIN
+// ======================================================================
+
+// 📌 Usuário comum cadastra o endereço após solicitar adoção
+router.post(
+  "/endereco",
+  autenticar,           // usuário precisa estar logado
+  userController.cadastrarEnderecoAposSolicitacao
 );
 
-// Admin → listar usuários por permissão
-router.get('/admin/listar/:permissao',
+// ======================================================================
+// ROTAS EXCLUSIVAS DO ADMIN
+// ======================================================================
+
+// Somente permissão 1 pode atualizar usuários e permissões
+router.put(
+  "/admin/usuario/:id",
   autenticar,
-  exigirPermissao(1),
-  userController.listarPorPermissao
+  userController.adminAtualizarUsuario
 );
 
-// Admin → alterar permissão
-router.put('/admin/permissao/:id',
+router.put(
+  "/admin/usuario/:id/permissao",
   autenticar,
-  exigirPermissao(1),
-  userController.alterarPermissao
+  userController.adminAlterarPermissao
+);
+
+// Lista usuários por permissão (1, 2 ou 3)
+router.get(
+  "/admin/permissao/:idPermissao",
+  autenticar,
+  userController.listarUsuariosPorPermissao
 );
 
 module.exports = router;

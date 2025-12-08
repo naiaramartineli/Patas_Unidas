@@ -1,31 +1,32 @@
-// src/routes/caoRoutes.js
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
-const caoController = require("../controllers/caoController");
-const autenticar = require("../middleware/authMiddleware");
+const auth = require("../middleware/authMiddleware");
+const upload = require("../middleware/multer");
+const {
+  cadastrarCao,
+  listarCachorrosUsuario,
+  listarCachorrosADM,
+  inativar,
+  ativar,
+  atualizarCao
+} = require("../controllers/controllerCao");
 
-const storage = multer.diskStorage({
-  destination: (_, __, cb) => cb(null, path.resolve("uploads")),
-  filename: (_, file, cb) => {
-    const timestamp = Date.now();
-    cb(null, `${timestamp}-${file.originalname}`);
-  },
-});
+// Usuário comum → lista apenas ativos
+router.get("/", listarCachorrosUsuario);
 
-const upload = multer({ storage });
+// ADM → lista todos (ativos + inativos)
+router.get("/adm", auth.permissao(1), listarCachorrosADM);
 
-// Criar cão
-router.post("/", autenticar, upload.single("foto"), caoController.cadastrarCachorro);
+// Criar
+router.post("/", auth.autenticar, upload.single("foto"), cadastrarCao);
 
-// Listar cães (com filtros)
-router.get("/", autenticar, caoController.listarCachorros);
+// Atualizar
+router.put("/:id", auth.permissao(1), upload.single("foto"), atualizarCao);
 
-// Atualizar (foto opcional)
-router.patch("/:id", autenticar, upload.single("foto"), caoController.atualizarCachorro);
+// Inativar
+router.patch("/inativar/:id", auth.permissao(1), inativar);
 
-// Soft delete
-router.delete("/:id", autenticar, caoController.deletarCachorro);
+// Ativar
+router.patch("/ativar/:id", auth.permissao(1), ativar);
 
 module.exports = router;

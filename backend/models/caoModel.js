@@ -1,10 +1,9 @@
-// src/models/caoModel.js
 const pool = require("../db/db");
 
-// ==========================================================
-// CRIAR CÃO
-// ==========================================================
-async function criarCachorro(dados) {
+// ===============================================
+// CADASTRAR
+// ===============================================
+async function criarCao(dados) {
   const sql = `
     INSERT INTO cao (
       id_usuario, nome, id_raca, sexo, idade, temperamento, porte, pelagem,
@@ -24,123 +23,111 @@ async function criarCachorro(dados) {
     dados.porte,
     dados.pelagem,
     dados.descricao,
-    dados.vacinas,
+    dados.vacinas || "",
     dados.castrado ? 1 : 0,
     dados.foto_url,
     dados.valor_apadrinhamento,
-    dados.observacao
+    dados.observacao || ""
   ];
 
   const [result] = await pool.execute(sql, params);
   return result.insertId;
 }
 
-// ==========================================================
-// LISTAR CÃES + FILTROS (usuário padrão)
-// ==========================================================
-async function listarCachorros(filtros) {
-  let sql = `
-    SELECT * 
-    FROM cao 
+// ===============================================
+// LISTAR — Usuário (somente ativos)
+// ===============================================
+async function pegarCachorrosUsuario() {
+  const sql = `
+    SELECT *
+    FROM cao
     WHERE deletedAt IS NULL
+    ORDER BY id_cao ASC
   `;
-
-  const params = [];
-
-  if (filtros.idade) {
-    sql += ` AND idade = ?`;
-    params.push(filtros.idade);
-  }
-
-  if (filtros.pelagem) {
-    sql += ` AND pelagem = ?`;
-    params.push(filtros.pelagem);
-  }
-
-  if (filtros.sexo) {
-    sql += ` AND sexo = ?`;
-    params.push(filtros.sexo);
-  }
-
-  sql += ` ORDER BY id_cao ASC`;
-
-  const [rows] = await pool.execute(sql, params);
+  const [rows] = await pool.execute(sql);
   return rows;
 }
 
-// ==========================================================
-// LISTAR CÃES (ADMIN) → incluindo deletados
-// ==========================================================
-async function listarCachorrosAdmin(status) {
-  let sql = `
-    SELECT * 
-    FROM cao 
-    WHERE 1 = 1
+// ===============================================
+// LISTAR — ADM (todos: ativos e inativos)
+// ===============================================
+async function pegarCachorrosADM() {
+  const sql = `
+    SELECT *
+    FROM cao
+    ORDER BY id_cao ASC
   `;
-
-  const params = [];
-
-  if (status === "ativos") {
-    sql += ` AND deletedAt IS NULL`;
-  } else if (status === "deletados") {
-    sql += ` AND deletedAt IS NOT NULL`;
-  }
-
-  sql += ` ORDER BY id_cao ASC`;
-
-  const [rows] = await pool.execute(sql, params);
+  const [rows] = await pool.execute(sql);
   return rows;
 }
 
-// ==========================================================
-// UPDATE DINÂMICO (FOTO OPCIONAL)
-// ==========================================================
-async function atualizarCachorro(id, dados) {
-  const campos = [];
-  const params = [];
-
-  for (const campo in dados) {
-    if (dados[campo] !== undefined && campo !== "id") {
-      campos.push(`${campo} = ?`);
-      params.push(dados[campo]);
-    }
-  }
-
-  // Se nada for enviado, não atualiza.
-  if (campos.length === 0) return 0;
-
-  // updatedAt sempre atualizado
-  campos.push(`updatedAt = NOW()`);
-
-  params.push(id);
-
+// ===============================================
+// INATIVAR (soft delete)
+// ===============================================
+async function inativarCao(id) {
   const sql = `
-    UPDATE cao SET ${campos.join(", ")}
+    UPDATE cao SET deletedAt = NOW()
     WHERE id_cao = ? AND deletedAt IS NULL
   `;
-
-  const [result] = await pool.execute(sql, params);
-  return result.affectedRows;
-}
-
-// ==========================================================
-// SOFT DELETE
-// ==========================================================
-async function deletarCachorro(id) {
-  const sql = `
-    UPDATE cao 
-    SET deletedAt = NOW() 
-    WHERE id_cao = ? AND deletedAt IS NULL
-  `;
-
   const [result] = await pool.execute(sql, [id]);
   return result.affectedRows;
 }
 
+// ===============================================
+// ATIVAR (remove soft delete)
+// ===============================================
+async function ativarCao(id) {
+  const sql = `
+    UPDATE cao SET deletedAt = NULL
+    WHERE id_cao = ?
+  `;
+  const [result] = await pool.execute(sql, [id]);
+  return result.affectedRows;
+}
+
+// ===============================================
+// ATUALIZAR COM FOTO OPCIONAL
+// ===============================================
+async function atualizarCaoDB(id, dados) {
+  const campos = [];
+  const valores = [];
+
+  const add = (campo, valor) => {
+    if (valor !== undefined && valor !== null) {
+      campos.push(`${campo} = ?`);
+      valores.push(valor);
+    }
+  };
+
+  add("id_raca", dados.id_raca);
+  add("nome", dados.nome);
+  add("sexo", dados.sexo);
+  add("idade", dados.idade);
+  add("porte", dados.porte);
+  add("pelagem", dados.pelagem);
+  add("descricao", dados.descricao);
+  add("foto_url", dados.foto_url);
+  add("valor_apadrinhamento", dados.valor_apadrinhamento);
+
+  campos.push("updatedAt = NOW()");
+
+  valores.push(id);
+
+  const sql = `
+    UPDATE cao SET 
+      ${campos.join(", ")}
+    WHERE id_cao = ?
+  `;
+
+  const [result] = await pool.execute(sql, valores);
+  return result.affectedRows;
+}
+
 module.exports = {
-  criarCachorro,
-  listarCachorros,
-  listarCachorrosAdmin,
-  atualizarCachorro,
-  deletarCachorro
+  criarCao,
+  pegarCachorrosUsuario,
+  pegarCachorrosADM,
+  inativarCao,
+  ativarCao,
+  atualizarCaoDB
 };
