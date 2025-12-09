@@ -101,7 +101,7 @@ O sistema possui padrões de nomeação baseado no tipo de arquivo/diretório co
     ∟Arquivos: snake_case
     ∟Constantes: SCREAMING_SNAKE_CASE
     ∟Classes: PascalCase
-    ∟Diretórios/Pastas: snake_case
+    ∟Diretórios/Pastas: camelCase
     ∟Funções/Métodos: camelCase
     ∟Variáveis: camelCase
 
