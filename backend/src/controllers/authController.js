@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt');
-const db = require('../config/db');
-const jwtConfig = require('../config/jwt');
-const Usuario = require('../models/userModel');
+import bcrypt from 'bcryptjs';
+import db from '../config/db.js';
+import jwt from 'jsonwebtoken';  // Adicionado jwt
+import Usuario from '../models/userModel.js';  // Alterado para import ES
 
 // Configurações
 const JWT_SECRET = process.env.JWT_SECRET || 'supersegredo_patas_unidas_2025_@SEGURO';
@@ -10,7 +10,7 @@ const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || '30d';
 const BCRYPT_SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
 
 // Registrar novo usuário
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
     try {
         const {
             nome, sobrenome, nome_social, data_nasc, cpf, email, senha,
@@ -112,17 +112,13 @@ exports.register = async (req, res) => {
         );
         
         // Gerar tokens JWT
-
         const accessToken = jwt.sign(
             { 
-                id_usuario: user.id_usuario,
-                id_permissao: user.id_permissao,
-                email: user.email,
-                nome: user.nome,
-                sobrenome: user.sobrenome,
-                nome_social: user.nome_social || null,
-                telefone: user.telefone || null,
-                tem_endereco: user.id_endereco !== null
+                id_usuario: id_usuario,
+                id_permissao: 3,
+                email: email.toLowerCase(),
+                nome: usuarioData.nome,
+                tem_endereco: userResult.tem_endereco
             },
             JWT_SECRET,
             { expiresIn: JWT_EXPIRES_IN }
@@ -177,7 +173,7 @@ exports.register = async (req, res) => {
 };
 
 // Login de usuário
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const { email, senha } = req.body;
         
@@ -274,7 +270,7 @@ exports.login = async (req, res) => {
 };
 
 // Obter perfil do usuário autenticado
-exports.getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         
@@ -304,7 +300,7 @@ exports.getProfile = async (req, res) => {
 };
 
 // Atualizar perfil
-exports.updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         const {
@@ -398,7 +394,7 @@ exports.updateProfile = async (req, res) => {
 };
 
 // Alterar senha
-exports.changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         const { senha_atual, nova_senha } = req.body;
@@ -481,7 +477,7 @@ exports.changePassword = async (req, res) => {
 };
 
 // Refresh token
-exports.refreshToken = async (req, res) => {
+export const refreshToken = async (req, res) => {
     try {
         const { id_usuario, id_permissao, email, nome } = req.refreshTokenInfo;
         
@@ -497,16 +493,12 @@ exports.refreshToken = async (req, res) => {
         }
         
         // Gerar novo access token
-
         const accessToken = jwt.sign(
             { 
                 id_usuario: id_usuario,
                 id_permissao: id_permissao,
                 email: email,
                 nome: nome,
-                sobrenome: sobrenome || '',
-                nome_social: nome_social || null,
-                telefone: telefone || null,
                 tem_endereco: user.tem_endereco || false
             },
             JWT_SECRET,
@@ -548,7 +540,7 @@ exports.refreshToken = async (req, res) => {
 };
 
 // Logout
-exports.logout = (req, res) => {
+export const logout = (req, res) => {
     res.json({
         success: true,
         message: 'Logout realizado com sucesso'
@@ -556,7 +548,7 @@ exports.logout = (req, res) => {
 };
 
 // Verificar token
-exports.verifyAuth = (req, res) => {
+export const verifyAuth = (req, res) => {
     res.json({
         success: true,
         message: 'Token válido',
@@ -568,7 +560,7 @@ exports.verifyAuth = (req, res) => {
 };
 
 // Esqueci minha senha (solicitação)
-exports.forgotPassword = async (req, res) => {
+export const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
         
@@ -631,7 +623,7 @@ exports.forgotPassword = async (req, res) => {
 };
 
 // Resetar senha (com token)
-exports.resetPassword = async (req, res) => {
+export const resetPassword = async (req, res) => {
     try {
         const { token, nova_senha } = req.body;
         
@@ -707,4 +699,18 @@ exports.resetPassword = async (req, res) => {
             code: 'PASSWORD_RESET_ERROR'
         });
     }
+};
+
+// Exportar tudo
+export default {
+    register,
+    login,
+    getProfile,
+    updateProfile,
+    changePassword,
+    refreshToken,
+    logout,
+    verifyAuth,
+    forgotPassword,
+    resetPassword
 };
