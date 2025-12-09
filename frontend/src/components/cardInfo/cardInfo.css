@@ -1,0 +1,23 @@
+.card-info {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-info h3 {
+    margin-bottom: 10px;
+    color: var(--gray-text);
+}
+
+.card-info p {
+    color: var(--gray-text-light);
+    line-height: 1.4;
+}
+
+.card-info img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}

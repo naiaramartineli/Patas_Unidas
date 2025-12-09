@@ -1,0 +1,56 @@
+.container-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.card-pagamento {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 400px;
+    height: 550px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.card-pagamento h2 {
+    font-size: 24px;
+    color: var(--secondary-color);
+    margin: 0;
+    text-align: center;
+}
+
+.card-pagamento p {
+    font-size: 17px;
+    color: var(--gray-text);
+    margin: 0 0 10px 0;
+}
+
+.card-img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.card-button2 {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 26px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color var(--transition-medium);
+}
+
+.card-button2:hover {
+    background-color: var(--primary-dark);
+}

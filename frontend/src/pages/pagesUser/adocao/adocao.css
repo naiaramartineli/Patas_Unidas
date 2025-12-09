@@ -1,0 +1,54 @@
+/* =============================
+   ADOÇÃO
+============================= */
+.adocao-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: #fff8f0;
+  overflow-x: hidden;
+}
+
+.adocao-patinhas-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.adocao-container {
+  padding: 2rem 2.5rem;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.adocao-titulo {
+  color: #7C428F;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.adocao-texto {
+  color: #444;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 1rem auto 2rem auto;
+}
+
+.adocao-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.adocao-confirmacao {
+  margin-top: 2rem;
+  background: #f4e9fb;
+  padding: 1rem;
+  border-radius: 10px;
+  color: #5a2f6f;
+  font-weight: 600;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}

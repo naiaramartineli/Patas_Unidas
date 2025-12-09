@@ -1,0 +1,64 @@
+/* =============================
+   PAGAMENTO PIX
+============================= */
+.pix-wrapper {
+  padding-top: 20px;
+}
+
+.pix-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-gerar {
+  padding: 14px 20px;
+  background: #7c428f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.qr-code {
+  width: 260px;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+.pix-box {
+  margin-top: 30px;
+}
+
+.pix-label {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.pix-copia {
+  width: 80%;
+  height: 80px;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.btn-copiar {
+  margin-top: 12px;
+  padding: 12px 20px;
+  background: #ffd52e;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .pix-copia {
+    width: 95%;
+  }
+  
+  .qr-code {
+    width: 220px;
+  }
+}

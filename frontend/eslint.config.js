@@ -1,54 +1,70 @@
-// eslint.config.js - Configuração para React + Vite (Flat Config)
-
-import js from "@eslint/js";
-import globals from "globals";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
+import js from '@eslint/js'
+import globals from 'globals'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
+  { ignores: ['dist', 'node_modules'] },
   {
-    files: ["src/**/*.{js,jsx}"],
-
+    files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
+      ecmaVersion: 2022,
+      sourceType: 'module',
       globals: {
         ...globals.browser,
-        ...globals.es2021,
+        ...globals.node
       },
       parserOptions: {
         ecmaFeatures: {
-          jsx: true,
-        },
-      },
+          jsx: true
+        }
+      }
     },
-
+    settings: {
+      react: {
+        version: '18.2'
+      }
+    },
     plugins: {
       react,
-      "react-hooks": reactHooks,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh
     },
-
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
-
-      // Regras adicionais úteis
-      "react/react-in-jsx-scope": "off", // Não é necessário no React 17+
-      "react/prop-types": "off", // Opcional — desligado porque a maioria usa TS ou validações próprias
-
-      // Regras de hooks
       ...reactHooks.configs.recommended.rules,
-
-      // Boas práticas gerais
-      "no-unused-vars": "warn",
-      "no-undef": "error",
-      "no-console": "warn",
-    },
-
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  },
-];
+      
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true }
+      ],
+      
+      'no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_'
+      }],
+      
+      'no-console': ['warn', { 
+        allow: ['warn', 'error'] 
+      }],
+      
+      'prefer-const': 'warn',
+      'eqeqeq': ['error', 'always'],
+      'curly': ['error', 'all'],
+      'semi': ['error', 'never'],
+      'quotes': ['error', 'single', { avoidEscape: true }],
+      'indent': ['error', 2, { SwitchCase: 1 }],
+      'comma-dangle': ['error', 'never']
+    }
+  }
+]

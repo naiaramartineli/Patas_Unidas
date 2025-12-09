@@ -1,0 +1,169 @@
+/* =============================
+   VISUALIZA DOAÇÕES
+============================= */
+.visualiza-doacoes-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.doacoes-patinhas-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.08;
+}
+
+.visualiza-doacoes-main {
+  flex: 1;
+  max-width: 960px;
+  margin: 3rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.visualiza-doacoes-main h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #7c428f;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.subtitulo-doacoes {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  color: #555;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Grid de doações */
+.doacoes-lista {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+.doacao-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(124, 66, 143, 0.25);
+  width: 300px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.doacao-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(124, 66, 143, 0.4);
+}
+
+.doacao-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.icon-heart {
+  color: #7c428f;
+  font-size: 1.4rem;
+}
+
+.doacao-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #7c428f;
+}
+
+/* Info rows */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: #f9f5fb;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #7c428f;
+  box-shadow: inset 0 0 5px rgba(124, 66, 143, 0.15);
+}
+
+.label {
+  width: 100px;
+  font-weight: 600;
+  color: #7c428f;
+}
+
+.value {
+  font-weight: 500;
+  color: #333;
+}
+
+.descricao {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+  margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* Botão voltar */
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 200px;
+  justify-content: center;
+  margin: 3rem auto 0;
+  background-color: #7c428f;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-voltar:hover {
+  background-color: #5a2e6e;
+}
+
+/* Mensagem caso não tenha doações */
+.nenhuma-doacao {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7c428f;
+  margin-top: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .doacoes-lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .doacoes-lista {
+    grid-template-columns: 1fr;
+  }
+  
+  .visualiza-doacoes-main h1 {
+    font-size: 2rem;
+  }
+}

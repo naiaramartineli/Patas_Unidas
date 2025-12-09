@@ -1,0 +1,186 @@
+/* frontend/src/components/NotFound/NotFound.css */
+.notfound-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.notfound-patinhas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.notfound-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.notfound-content {
+  max-width: 600px;
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid #7c428f;
+}
+
+.notfound-error-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.notfound-error-code h1 {
+  font-size: 6rem;
+  color: #7c428f;
+  margin: 0;
+  line-height: 1;
+}
+
+.dog-icon {
+  font-size: 4rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.notfound-content h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.notfound-message {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.notfound-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.notfound-actions button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-voltar {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.btn-voltar:hover {
+  background: #e0e0e0;
+}
+
+.btn-home {
+  background: #7c428f;
+  color: white;
+}
+
+.btn-home:hover {
+  background: #6a377a;
+  transform: translateY(-2px);
+}
+
+.btn-vitrine {
+  background: #a678b5;
+  color: white;
+}
+
+.btn-vitrine:hover {
+  background: #9467a3;
+  transform: translateY(-2px);
+}
+
+.notfound-suggestions {
+  text-align: left;
+  background: #f9f5fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #7c428f;
+}
+
+.notfound-suggestions h3 {
+  color: #7c428f;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.notfound-suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notfound-suggestions li {
+  padding: 0.5rem 0;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  border-bottom: 1px solid #eee;
+}
+
+.notfound-suggestions li:last-child {
+  border-bottom: none;
+}
+
+.notfound-suggestions li:hover {
+  color: #7c428f;
+  padding-left: 10px;
+}
+
+.notfound-suggestions li::before {
+  content: "🐾 ";
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .notfound-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
+  
+  .notfound-error-code {
+    flex-direction: column;
+  }
+  
+  .notfound-error-code h1 {
+    font-size: 4rem;
+  }
+  
+  .dog-icon {
+    font-size: 3rem;
+  }
+  
+  .notfound-actions {
+    flex-direction: column;
+  }
+  
+  .notfound-actions button {
+    width: 100%;
+  }
+}
