@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const racaController = require('../controllers/racaController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Rotas públicas
 router.get('/', racaController.findAll);

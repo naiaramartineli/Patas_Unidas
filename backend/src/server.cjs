@@ -6,7 +6,7 @@ const fs = require("fs");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
-// 🔥 IMPORTAR TODAS AS ROTAS CRIADAS
+// 🔥 IMPORTAR TODAS AS ROTAS CRIADAS (CAMINHOS CORRIGIDOS)
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const caoRoutes = require("./routes/caoRoutes");
@@ -15,10 +15,6 @@ const vacinaRoutes = require("./routes/vacinaRoutes");
 const adotaRoutes = require("./routes/adotaRoutes");
 const enderecoRoutes = require("./routes/enderecoRoutes");
 const recuperaSenhaRoutes = require("./routes/recuperaSenhaRoutes");
-
-// ROTAS EXISTENTES DO MODELO ANTERIOR
-const pixRoutes = require("./routes/pixRoutes");
-const questionarioRoutes = require("./routes/questionarioRoutes");
 
 const app = express();
 
@@ -34,11 +30,12 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Criar diretórios de uploads se não existirem
+// __dirname agora é a pasta 'src'
 const uploadsDirs = [
     path.join(__dirname, "public/uploads"),
     path.join(__dirname, "public/uploads/caes"),
     path.join(__dirname, "public/uploads/usuarios"),
-    path.join(__dirname, "uploads") // Para compatibilidade com rotas antigas
+    path.join(__dirname, "../uploads") // Para compatibilidade - cria na raiz do projeto
 ];
 
 uploadsDirs.forEach(dir => {
@@ -50,7 +47,7 @@ uploadsDirs.forEach(dir => {
 
 // Servir arquivos estáticos
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Para compatibilidade
+app.use("/uploads", express.static(path.join(__dirname, "../uploads"))); // Para compatibilidade
 
 /* ================================
    🚀 ROTAS DA APLICAÇÃO
@@ -79,12 +76,6 @@ app.use("/api/enderecos", enderecoRoutes);
 
 // RECUPERAÇÃO DE SENHA
 app.use("/api/recuperar-senha", recuperaSenhaRoutes);
-
-// PIX (rota existente - manter para compatibilidade)
-app.use("/api/pix", pixRoutes);
-
-// QUESTIONÁRIO (rota existente - manter para compatibilidade)
-app.use("/api/solicitacoes-questionario", questionarioRoutes);
 
 /* ================================
    ROTA DE HEALTH CHECK
@@ -115,9 +106,7 @@ app.get("/", (req, res) => {
             vacinas: "/api/vacinas",
             adocoes: "/api/adocoes",
             enderecos: "/api/enderecos",
-            recuperar_senha: "/api/recuperar-senha",
-            pix: "/api/pix",
-            questionario: "/api/solicitacoes-questionario"
+            recuperar_senha: "/api/recuperar-senha"
         }
     });
 });
@@ -184,7 +173,5 @@ app.listen(PORT, HOST, () => {
     console.log(`   🏠 Adoções: /api/adocoes`);
     console.log(`   📍 Endereços: /api/enderecos`);
     console.log(`   🔑 Recuperação: /api/recuperar-senha`);
-    console.log(`   💰 PIX: /api/pix`);
-    console.log(`   📝 Questionário: /api/solicitacoes-questionario`);
     console.log(`========================================`);
 });

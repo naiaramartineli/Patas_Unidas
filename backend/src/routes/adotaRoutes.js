@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const adotaController = require('../controllers/adotaController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const permissaoMiddleware = require('../middlewares/permissaoMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const permissaoMiddleware = require('../middleware/permissaoMidlleware');
 
 // Rotas de adoção
 router.post('/solicitar', 

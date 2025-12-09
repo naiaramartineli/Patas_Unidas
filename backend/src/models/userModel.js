@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const Endereco = require('./enderecoModel');
+const Endereco = require ('./enderecoModel.js');
 
 class Usuario {
     
@@ -39,16 +39,15 @@ class Usuario {
             const now = new Date();
             const [usuarioResult] = await connection.execute(
                 `INSERT INTO usuario 
-                 (id_endereco, id_permissao, nome, sobrenome, nome_social, telefone,
+                 (id_endereco, id_permissao, nome, sobrenome, nome_social, 
                   data_nasc, cpf, createdAt, updateAt, atividade)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
                 [
-                    id_endereco || null,
+                    id_endereco,
                     usuarioData.id_permissao || 3, // Padrão: Padrinho
                     usuarioData.nome,
                     usuarioData.sobrenome,
                     usuarioData.nome_social || null,
-                    usuarioData.telefone || null,
                     usuarioData.data_nasc,
                     usuarioData.cpf,
                     now,
@@ -145,9 +144,9 @@ class Usuario {
             
             // Aplicar busca
             if (search) {
-                query += ` AND (u.nome LIKE ? OR u.sobrenome LIKE ? OR u.cpf LIKE ? OR u.email LIKE ? OR u.telefone LIKE ?)`;
+                query += ` AND (u.nome LIKE ? OR u.sobrenome LIKE ? OR u.cpf LIKE ?)`;
                 const searchTerm = `%${search}%`;
-                params.push(searchTerm, searchTerm, searchTerm, searchTerm, searchTerm);
+                params.push(searchTerm, searchTerm, searchTerm);
             }
             
             // Contar total
@@ -204,14 +203,13 @@ class Usuario {
             // Atualizar dados
             await connection.execute(
                 `UPDATE usuario SET
-                 nome = ?, sobrenome = ?, nome_social = ?, telefone = ?,
+                 nome = ?, sobrenome = ?, nome_social = ?, 
                  data_nasc = ?, updateAt = NOW()
                  WHERE id_usuario = ?`,
                 [
                     usuarioData.nome || user.nome,
                     usuarioData.sobrenome || user.sobrenome,
                     usuarioData.nome_social !== undefined ? usuarioData.nome_social : user.nome_social,
-                    usuarioData.telefone !== undefined ? usuarioData.telefone : user.telefone,
                     usuarioData.data_nasc || user.data_nasc,
                     id_usuario
                 ]
@@ -225,37 +223,6 @@ class Usuario {
             throw error;
         } finally {
             connection.release();
-        }
-    }
-    
-    // Atualizar telefone do usuário
-    static async updateTelefone(id_usuario, telefone) {
-        try {
-            await db.execute(
-                'UPDATE usuario SET telefone = ?, updateAt = NOW() WHERE id_usuario = ?',
-                [telefone, id_usuario]
-            );
-            return true;
-        } catch (error) {
-            console.error('Erro ao atualizar telefone:', error);
-            throw error;
-        }
-    }
-    
-    // Buscar usuário por telefone
-    static async findByTelefone(telefone) {
-        try {
-            const [usuarios] = await db.execute(
-                'SELECT * FROM usuario WHERE telefone = ? AND atividade = 1',
-                [telefone]
-            );
-            
-            if (usuarios.length === 0) return null;
-            
-            return usuarios[0];
-        } catch (error) {
-            console.error('Erro ao buscar usuário por telefone:', error);
-            throw error;
         }
     }
     
@@ -406,20 +373,6 @@ class Usuario {
         }
     }
     
-    // Verificar se telefone já existe
-    static async telefoneExists(telefone) {
-        try {
-            const [results] = await db.execute(
-                'SELECT id_usuario FROM usuario WHERE telefone = ? AND atividade = 1',
-                [telefone]
-            );
-            return results.length > 0;
-        } catch (error) {
-            console.error('Erro ao verificar telefone:', error);
-            throw error;
-        }
-    }
-    
     // Buscar estatísticas
     static async getStats() {
         try {
@@ -431,72 +384,13 @@ class Usuario {
                     (SELECT COUNT(*) FROM usuario WHERE id_permissao = 3 AND atividade = 1) as total_padrinhos,
                     (SELECT COUNT(*) FROM usuario WHERE atividade = 1 AND MONTH(createdAt) = MONTH(CURDATE())) as novos_este_mes,
                     (SELECT COUNT(*) FROM usuario WHERE id_endereco IS NOT NULL AND atividade = 1) as usuarios_com_endereco,
-                    (SELECT COUNT(*) FROM usuario WHERE id_endereco IS NULL AND atividade = 1) as usuarios_sem_endereco,
-                    (SELECT COUNT(*) FROM usuario WHERE telefone IS NOT NULL AND atividade = 1) as usuarios_com_telefone,
-                    (SELECT COUNT(*) FROM usuario WHERE telefone IS NULL AND atividade = 1) as usuarios_sem_telefone
+                    (SELECT COUNT(*) FROM usuario WHERE id_endereco IS NULL AND atividade = 1) as usuarios_sem_endereco
             `;
             
             const [stats] = await db.execute(query);
             return stats[0] || {};
         } catch (error) {
             console.error('Erro ao buscar estatísticas:', error);
-            throw error;
-        }
-    }
-    
-    // Buscar adoções do usuário
-    static async getAdoptions(id_usuario) {
-        try {
-            const [adocoes] = await db.execute(
-                `SELECT a.*, c.nome as cao_nome, c.foto_url,
-                        ac.status_adocao
-                 FROM adotar a
-                 INNER JOIN adota_cao ac ON a.id_adotar = ac.id_adotar
-                 INNER JOIN cao c ON ac.cao_id_cao = c.id_cao
-                 WHERE a.id_usuario = ?
-                 ORDER BY a.data_adocao DESC`,
-                [id_usuario]
-            );
-            
-            return adocoes;
-        } catch (error) {
-            console.error('Erro ao buscar adoções:', error);
-            throw error;
-        }
-    }
-    
-    // Buscar apadrinhamentos do usuário
-    static async getSponsorships(id_usuario) {
-        try {
-            const [apadrinhamentos] = await db.execute(
-                `SELECT ap.*, c.nome as cao_nome, c.foto_url,
-                        ca.valor
-                 FROM apadrinhar ap
-                 INNER JOIN apadrinha_cao ac ON ap.id_apadrinhar = ac.id_apadrinhar
-                 INNER JOIN cao c ON ac.id_cao = c.id_cao
-                 LEFT JOIN cartao_apadrinha ca ON ap.id_apadrinhar = ca.id_apadrinhar
-                 WHERE ap.id_usuario = ?
-                 ORDER BY ap.data DESC`,
-                [id_usuario]
-            );
-            
-            return apadrinhamentos;
-        } catch (error) {
-            console.error('Erro ao buscar apadrinhamentos:', error);
-            throw error;
-        }
-    }
-    
-    // Atualizar foto de perfil
-    static async updateProfilePhoto(id_usuario, foto_url) {
-        try {
-            await db.execute(
-                'UPDATE usuario SET foto_url = ?, updateAt = NOW() WHERE id_usuario = ?',
-                [foto_url, id_usuario]
-            );
-            return true;
-        } catch (error) {
-            console.error('Erro ao atualizar foto de perfil:', error);
             throw error;
         }
     }

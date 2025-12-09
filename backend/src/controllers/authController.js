@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt');
-const db = require('../config/db');
-const jwtConfig = require('../config/jwt');
-const Usuario = require('../models/userModel');
+const bcrypt = require('bcryptjs');
+const db = require('../config/db.js');
+const jwt = require('jsonwebtoken');
+const Usuario = require('../models/userModel.js');
 
 // Configurações
 const JWT_SECRET = process.env.JWT_SECRET || 'supersegredo_patas_unidas_2025_@SEGURO';
@@ -10,7 +10,7 @@ const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || '30d';
 const BCRYPT_SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
 
 // Registrar novo usuário
-exports.register = async (req, res) => {
+const register = async (req, res) => {
     try {
         const {
             nome, sobrenome, nome_social, data_nasc, cpf, email, senha,
@@ -112,17 +112,13 @@ exports.register = async (req, res) => {
         );
         
         // Gerar tokens JWT
-
         const accessToken = jwt.sign(
             { 
-                id_usuario: user.id_usuario,
-                id_permissao: user.id_permissao,
-                email: user.email,
-                nome: user.nome,
-                sobrenome: user.sobrenome,
-                nome_social: user.nome_social || null,
-                telefone: user.telefone || null,
-                tem_endereco: user.id_endereco !== null
+                id_usuario: id_usuario,
+                id_permissao: 3,
+                email: email.toLowerCase(),
+                nome: usuarioData.nome,
+                tem_endereco: userResult.tem_endereco
             },
             JWT_SECRET,
             { expiresIn: JWT_EXPIRES_IN }
@@ -177,7 +173,7 @@ exports.register = async (req, res) => {
 };
 
 // Login de usuário
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, senha } = req.body;
         
@@ -274,7 +270,7 @@ exports.login = async (req, res) => {
 };
 
 // Obter perfil do usuário autenticado
-exports.getProfile = async (req, res) => {
+const getProfile = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         
@@ -304,7 +300,7 @@ exports.getProfile = async (req, res) => {
 };
 
 // Atualizar perfil
-exports.updateProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         const {
@@ -398,7 +394,7 @@ exports.updateProfile = async (req, res) => {
 };
 
 // Alterar senha
-exports.changePassword = async (req, res) => {
+const changePassword = async (req, res) => {
     try {
         const id_usuario = req.user.id_usuario;
         const { senha_atual, nova_senha } = req.body;
@@ -481,7 +477,7 @@ exports.changePassword = async (req, res) => {
 };
 
 // Refresh token
-exports.refreshToken = async (req, res) => {
+const refreshToken = async (req, res) => {
     try {
         const { id_usuario, id_permissao, email, nome } = req.refreshTokenInfo;
         
@@ -497,16 +493,12 @@ exports.refreshToken = async (req, res) => {
         }
         
         // Gerar novo access token
-
         const accessToken = jwt.sign(
             { 
                 id_usuario: id_usuario,
                 id_permissao: id_permissao,
                 email: email,
                 nome: nome,
-                sobrenome: sobrenome || '',
-                nome_social: nome_social || null,
-                telefone: telefone || null,
                 tem_endereco: user.tem_endereco || false
             },
             JWT_SECRET,
@@ -548,7 +540,7 @@ exports.refreshToken = async (req, res) => {
 };
 
 // Logout
-exports.logout = (req, res) => {
+const logout = (req, res) => {
     res.json({
         success: true,
         message: 'Logout realizado com sucesso'
@@ -556,7 +548,7 @@ exports.logout = (req, res) => {
 };
 
 // Verificar token
-exports.verifyAuth = (req, res) => {
+const verifyAuth = (req, res) => {
     res.json({
         success: true,
         message: 'Token válido',
@@ -568,7 +560,7 @@ exports.verifyAuth = (req, res) => {
 };
 
 // Esqueci minha senha (solicitação)
-exports.forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
         
@@ -631,7 +623,7 @@ exports.forgotPassword = async (req, res) => {
 };
 
 // Resetar senha (com token)
-exports.resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
     try {
         const { token, nova_senha } = req.body;
         
@@ -707,4 +699,82 @@ exports.resetPassword = async (req, res) => {
             code: 'PASSWORD_RESET_ERROR'
         });
     }
+};
+
+// Validar token de reset (novo método)
+const validateResetToken = async (req, res) => {
+    try {
+        const { token } = req.params;
+        
+        if (!token) {
+            return res.status(400).json({ 
+                success: false,
+                error: 'Token não fornecido',
+                code: 'TOKEN_MISSING'
+            });
+        }
+        
+        // Verificar token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, JWT_SECRET);
+        } catch (error) {
+            return res.status(400).json({ 
+                success: false,
+                error: 'Token inválido ou expirado',
+                code: 'INVALID_OR_EXPIRED_TOKEN'
+            });
+        }
+        
+        // Verificar se é um token de reset de senha
+        if (decoded.type !== 'password_reset') {
+            return res.status(400).json({ 
+                success: false,
+                error: 'Tipo de token inválido',
+                code: 'INVALID_TOKEN_TYPE'
+            });
+        }
+        
+        // Verificar se usuário existe
+        const user = await Usuario.findById(decoded.id_usuario);
+        if (!user || user.atividade === 0) {
+            return res.status(400).json({ 
+                success: false,
+                error: 'Usuário não encontrado',
+                code: 'USER_NOT_FOUND'
+            });
+        }
+        
+        res.json({
+            success: true,
+            message: 'Token válido',
+            data: {
+                email: decoded.email,
+                expiresAt: new Date(decoded.exp * 1000)
+            }
+        });
+        
+    } catch (error) {
+        console.error('Erro ao validar token:', error);
+        res.status(500).json({ 
+            success: false,
+            error: 'Erro interno do servidor ao validar token',
+            code: 'TOKEN_VALIDATION_ERROR'
+        });
+    }
+};
+
+// Exportar tudo
+module.exports = {
+    register,
+    login,
+    getProfile,
+    updateProfile,
+    changePassword,
+    refreshToken,
+    logout,
+    verifyAuth,
+    forgotPassword,
+    resetPassword,
+    validateResetToken  
 };
