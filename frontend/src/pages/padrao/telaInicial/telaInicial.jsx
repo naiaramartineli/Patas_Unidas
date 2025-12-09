@@ -9,7 +9,7 @@ import QuemSomos from '../../../components/quemSomos/QuemSomos';
 import FeedbacksCarousel from '../../../components/feedback/FeedbacksCarousel';
 import Footer from '../../../components/footer/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
-import './TelaInicial.css';
+import './telaInicial.css';
 
 export default function TelaInicial() {
   const navigate = useNavigate();

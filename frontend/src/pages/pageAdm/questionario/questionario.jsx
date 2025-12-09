@@ -6,7 +6,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
 import Modal from '../../../components/Modal/Modal';
-import './Questionario.css';
+import './questionario.css';
 
 export default function Questionario() {
   const navigate = useNavigate();

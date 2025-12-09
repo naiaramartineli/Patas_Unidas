@@ -15,7 +15,7 @@ import {
   faDownload
 } from "@fortawesome/free-solid-svg-icons";
 import { userService } from "../../../services/userService";
-import "./VisualizaDoacoes.css";
+import "./visualizaDoacoes.css";
 
 export default function VisualizaDoacoes() {
   const navigate = useNavigate();

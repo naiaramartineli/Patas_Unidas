@@ -8,7 +8,7 @@ import { FaHeart, FaDog } from "react-icons/fa";
 import Confetti from "react-confetti";
 import { adocaoService } from "../../../services/adocaoService";
 import { caoService } from "../../../services/caoService";
-import "./Apadrinhamento.css";
+import "./apadrinhamento.css";
 
 function useWindowSize() {
   const [size, setSize] = useState({

@@ -1,0 +1,103 @@
+/* =============================
+   VITRINE USUÁRIO
+============================= */
+.vitrine-user-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-container-user {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.erro-mensagem-user {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.resultados-info-user {
+  margin: 1rem 2rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.Cards-grid-user {
+  display: grid !important;
+  grid-template-columns: repeat(3, 4fr) !important;
+  gap: 40px !important;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 30px !important;
+}
+
+.card-wrapper-user {
+  position: relative;
+  cursor: pointer;
+}
+
+.nenhum-resultado-user {
+  text-align: center;
+  padding: 2rem;
+}
+
+.btn-limpar-filtros-user {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: #7c428f;
+  color: #fff;
+  cursor: pointer;
+}
+
+.paginacao-wrapper-user {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2rem;
+}
+
+.paginacao-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-paginacao-user {
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #f1e5f7;
+}
+
+.info-pagina-user {
+  font-size: 0.95rem;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .Cards-grid-user {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .Cards-grid-user {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .resultados-info-user {
+    margin: 1rem 1rem 0;
+  }
+}

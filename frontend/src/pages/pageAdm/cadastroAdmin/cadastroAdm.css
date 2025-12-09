@@ -1,0 +1,95 @@
+.cadastro-admin {
+    position: relative;
+    min-height: 100vh;
+    background: var(--bg-light);
+    overflow-x: hidden;
+}
+
+.cadastro-admin-patinhas-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cadastro-admin-container {
+    padding: 2rem 3rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(124, 66, 143, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+.cadastro-admin-container h1 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.form-admin label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-text);
+}
+
+.form-admin input {
+    width: 100%;
+    padding: .55rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    margin-top: .3rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    color: var(--gray-text);
+}
+
+.form-admin input:focus {
+    border-color: var(--primary-dark);
+    outline: none;
+    background-color: var(--white);
+}
+
+.form-admin button {
+    width: 100%;
+    padding: .8rem;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-medium);
+    margin-top: 1rem;
+}
+
+.form-admin button:hover {
+    background: var(--primary-dark);
+}
+
+.mensagem {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.mensagem-sucesso {
+    color: #28a745;
+}
+
+.mensagem-erro {
+    color: var(--error-color);
+}
+
+@media (max-width: 600px) {
+    .cadastro-admin-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+}

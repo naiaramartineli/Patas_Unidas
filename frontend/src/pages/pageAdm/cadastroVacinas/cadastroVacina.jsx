@@ -5,7 +5,7 @@ import { vacinaService } from '../../../services/vacinaService';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
-import './CadastroVacina.css';
+import './cadastroVacina.css';
 
 export default function CadastroVacina() {
   const navigate = useNavigate();

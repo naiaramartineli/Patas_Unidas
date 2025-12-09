@@ -5,7 +5,7 @@ import { userService } from '../../../services/userService';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
-import './CadastroAdm.css';
+import './cadastroAdm.css';
 
 export default function CadastroAdm() {
   const navigate = useNavigate();

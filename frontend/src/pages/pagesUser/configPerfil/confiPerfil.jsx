@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
 import { authService } from "../../../services/authService";
 import { userService } from "../../../services/userService";
-import "./ConfiguracoesPerfil.css";
+import "./configPerfil.css";
 
 export default function ConfiguracoesPerfil() {
   const navigate = useNavigate();

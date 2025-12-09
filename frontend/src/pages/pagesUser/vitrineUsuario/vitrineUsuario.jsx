@@ -9,7 +9,7 @@ import Filtro from '../../../components/filtro/Filtro';
 import CardVitrine from '../../../components/CardVitrine/CardVitrine';
 import Footer from '../../../components/footer/footer';
 import { caoService } from '../../../services/caoService';
-import './VitrineUsuario.css';
+import './vitrineUsuario.css';
 
 export default function VitrineUsuario() {
   const navigate = useNavigate();

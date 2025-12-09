@@ -1,0 +1,200 @@
+.questionario-admin {
+    position: relative;
+    min-height: 100vh;
+    background: var(--bg-light);
+    overflow-x: hidden;
+}
+
+.questionario-admin-patinhas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.questionario-admin-container {
+    padding: 2rem 3rem;
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 120px);
+}
+
+.questionario-admin-container h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.questionario-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.input-busca {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    width: 260px;
+    font-size: 1rem;
+    outline: none;
+    color: var(--gray-text);
+    background-color: var(--white);
+}
+
+.input-busca:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0px 0px 4px rgba(124, 66, 143, 0.4);
+}
+
+.paginacao-info {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.questionario-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    box-shadow: 0 0 10px rgba(124, 66, 143, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.questionario-table th,
+.questionario-table td {
+    padding: 1rem 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid var(--primary-light);
+    font-size: 1rem;
+    color: var(--gray-text);
+}
+
+.questionario-table th {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.questionario-table tr:hover {
+    background-color: rgba(124, 66, 143, 0.05);
+}
+
+.dog-mini {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.dog-mini img {
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.select-status {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-medium);
+}
+
+.select-status:hover,
+.select-status:focus {
+    background-color: var(--primary-light);
+    outline: none;
+}
+
+.btn-resumo {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-resumo:hover {
+    background-color: var(--primary-dark);
+}
+
+.resumo-usuario p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    color: var(--gray-text-light);
+}
+
+.resumo-cachorro {
+    text-align: center;
+}
+
+.foto-resumo-cao {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.questionario-paginacao {
+    margin-top: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.questionario-paginacao button {
+    padding: 0.6rem 1.4rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    min-width: 130px;
+}
+
+.questionario-paginacao button:hover {
+    background-color: var(--primary-dark);
+}
+
+.questionario-paginacao button:disabled {
+    background-color: rgba(124, 66, 143, 0.5);
+    cursor: not-allowed;
+}
+
+.questionario-loading {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.questionario-erro {
+    padding: 1rem;
+    background: #ffd9d9;
+    color: var(--error-color);
+    border: 1px solid #ffb3b3;
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}

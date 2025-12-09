@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import "./SobreNos.css";
+import "./sobreNos.css";
 
 export default function SobreNos() {
   const { user, isAuthenticated } = useAuth();

@@ -8,7 +8,7 @@ import PatasAleatorias from '../../../components/patas/PatasAleatorias';
 import SearchBar from '../../../components/SearchBar';
 import Filtro from '../../../components/Filtro';
 import CardVitrine from '../../../components/CardVitrine';
-import './VitrineAdm.css';
+import './vitrineAdm.css';
 
 export default function VitrineAdm() {
   const navigate = useNavigate();

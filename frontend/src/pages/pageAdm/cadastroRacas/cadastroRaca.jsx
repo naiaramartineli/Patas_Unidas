@@ -5,7 +5,7 @@ import { racaService } from '../../../services/racaService';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
-import './CadastroRaca.css';
+import './cadastroRaca.css';
 
 export default function CadastroRaca() {
   const navigate = useNavigate();

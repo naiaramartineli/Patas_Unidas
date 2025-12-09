@@ -1,0 +1,170 @@
+/* =============================
+   CONFIGURAÇÃO DE PERFIL
+============================= */
+.config-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.config-patinhas-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.08;
+}
+
+.config-main {
+  flex: 1;
+  width: 90%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(124, 66, 143, 0.2);
+  font-family: "Poppins", sans-serif;
+}
+
+.config-main h1 {
+  text-align: center;
+  color: #7c428f;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+}
+
+.config-form section {
+  margin-bottom: 2rem;
+}
+
+.config-form h2 {
+  font-size: 1.4rem;
+  color: #7c428f;
+  margin-bottom: 1rem;
+}
+
+.config-form label {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.config-form input,
+.config-form select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  transition: border 0.2s ease;
+}
+
+.config-form input:focus,
+.config-form select:focus {
+  border-color: #7c428f;
+  outline: none;
+}
+
+/* Seção da Foto */
+.foto-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Círculo quando há foto */
+.foto-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #7c428f;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(124,66,143,0.3);
+}
+
+/* Avatar padrão (sem foto) */
+.foto-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: 4px solid #7c428f;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c428f;
+  font-size: 4rem;
+  box-shadow: 0 4px 12px rgba(124,66,143,0.3);
+}
+
+/* Botão alterar foto */
+.foto-upload {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #7c428f;
+  color: #fff !important;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.foto-upload input {
+  display: none;
+}
+
+.foto-upload:hover {
+  background: #5a2e6e;
+}
+
+/* Botão Salvar */
+.btn-salvar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem;
+  background: #7c428f;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-salvar:hover {
+  background: #5a2e6e;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .config-main {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+  
+  .foto-preview,
+  .foto-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .foto-avatar {
+    font-size: 3rem;
+  }
+}

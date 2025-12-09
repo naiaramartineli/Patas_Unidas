@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import "./Login.css";
+import "./login.css";
 import dogImg from "../../../assets/cachorro.png";
 
 export default function Login() {

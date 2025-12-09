@@ -16,7 +16,7 @@ import {
   faMoneyBillWave
 } from "@fortawesome/free-solid-svg-icons";
 import { userService } from "../../../services/userService";
-import "./VisualizaApadrinhamento.css";
+import "./visualizaApadrinhamento.css";
 
 export default function VisualizaApadrinhamento() {
   const navigate = useNavigate();

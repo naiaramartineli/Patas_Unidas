@@ -7,7 +7,7 @@ import ptBR from "date-fns/locale/pt-BR";
 import { format, isValid } from "date-fns";
 
 import "react-datepicker/dist/react-datepicker.css";
-import "./FormPage.css";
+import "./formPage.css";
 import dogImg from "../../../assets/cachorro.png";
 
 // Máscara para CPF

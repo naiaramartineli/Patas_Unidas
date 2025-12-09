@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/footer/footer";
 import PatasAleatorias from "../../../components/patas/PatasAleatorias";
-import "./PagamentoPix.css";
+import "./pagamentoPix.css";
 
 export default function PagamentoPix() {
   const location = useLocation();

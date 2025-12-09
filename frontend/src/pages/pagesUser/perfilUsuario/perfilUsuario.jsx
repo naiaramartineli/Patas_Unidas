@@ -17,7 +17,7 @@ import {
 import { authService } from '../../../services/authService';
 import { userService } from '../../../services/userService';
 import { adocaoService } from '../../../services/adocaoService';
-import './PerfilUsuario.css';
+import './perfilUsuario.css';
 
 export default function PerfilUsuario() {
   const navigate = useNavigate();

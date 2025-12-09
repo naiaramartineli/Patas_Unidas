@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { adocaoService } from "../../../services/adocaoService";
-import "./VisualizaAdocoes.css";
+import "./visualizaAdocoes.css";
 
 export default function VisualizaAdocoes() {
   const navigate = useNavigate();

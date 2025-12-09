@@ -1,0 +1,237 @@
+/* =============================
+   VISUALIZA APADRINHAMENTO
+============================= */
+.visualiza-apadrinhamento-wrapper {
+  min-height: 100vh;
+  background: #f9f5fb;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+
+.visualiza-apadrinhamento-patinhas {
+  position: fixed;
+  inset: 0;
+  opacity: 0.1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.visualiza-apadrinhamento-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(124, 66, 143, 0.15);
+}
+
+.visualiza-apadrinhamento-main h1 {
+  color: #7C428F;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitulo-apadrinhamento {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.apadrinhamento-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.apadrinhamento-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(124, 66, 143, 0.12);
+  border-left: 5px solid #7C428F;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apadrinhamento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(124, 66, 143, 0.2);
+}
+
+.apadrinhamento-card-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid #7C428F;
+}
+
+.apadrinhamento-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apadrinhamento-card-content {
+  flex: 1;
+}
+
+.apadrinhamento-card-content h3 {
+  color: #7C428F;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.apadrinhamento-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: #f4e9fb;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.info-label {
+  color: #7C428F;
+}
+
+.info-value {
+  color: #333;
+}
+
+.apadrinhamento-status {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.status-ativo {
+  background: #e6f7e9;
+  color: #2e7d32;
+}
+
+.status-pendente {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-encerrado {
+  background: #f5f5f5;
+  color: #757575;
+}
+
+.apadrinhamento-acoes {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.btn-apadrinhamento {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.btn-detalhes-apadrinhamento {
+  background: #7C428F;
+  color: white;
+}
+
+.btn-detalhes-apadrinhamento:hover {
+  background: #5a2e6e;
+}
+
+.btn-renovar-apadrinhamento {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-renovar-apadrinhamento:hover {
+  background: #388E3C;
+}
+
+.btn-cancelar-apadrinhamento {
+  background: #d9534f;
+  color: white;
+}
+
+.btn-cancelar-apadrinhamento:hover {
+  background: #b8423f;
+}
+
+.nenhum-apadrinhamento {
+  text-align: center;
+  padding: 3rem;
+  color: #7C428F;
+  font-size: 1.2rem;
+}
+
+.nenhum-apadrinhamento p {
+  margin-bottom: 1.5rem;
+}
+
+.btn-iniciar-apadrinhamento {
+  background: #7C428F;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-iniciar-apadrinhamento:hover {
+  background: #5a2e6e;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .visualiza-apadrinhamento-main {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+  
+  .apadrinhamento-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .apadrinhamento-card-img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .apadrinhamento-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .apadrinhamento-acoes {
+    flex-direction: column;
+  }
+}

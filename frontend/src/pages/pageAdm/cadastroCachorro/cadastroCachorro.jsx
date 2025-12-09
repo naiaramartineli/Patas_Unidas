@@ -7,7 +7,7 @@ import { vacinaService } from '../../../services/vacinaService';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import MultiSelectDropdown from '../../../components/MultiSelectDropdown';
-import './CadastroCachorro.css';
+import './cadastroCachorro.css';
 
 export default function CadastroCachorro() {
   const navigate = useNavigate();

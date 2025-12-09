@@ -11,7 +11,7 @@ import QuemSomos from '../../../components/quemSomos/QuemSomos';
 import FeedbacksCarousel from '../../../components/feedback/FeedbacksCarousel';
 import Footer from '../../../components/Footer';
 import PatasAleatorias from '../../../components/patas/PatasAleatorias';
-import './HomeAdm.css';
+import './homeAdm.css';
 
 export default function HomeAdm() {
   const navigate = useNavigate();

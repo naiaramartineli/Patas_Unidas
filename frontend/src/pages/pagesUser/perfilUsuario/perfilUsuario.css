@@ -1,0 +1,294 @@
+/* =============================
+   PERFIL USUÁRIO
+============================= */
+.perfil-usuario-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil-patinhas-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.08;
+}
+
+.perfil-usuario-main {
+  flex: 1;
+  width: 90%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(124, 66, 143, 0.2);
+  font-family: "Poppins", sans-serif;
+}
+
+.perfil-usuario-main h1 {
+  text-align: center;
+  color: #7c428f;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+}
+
+/* Seção de Informações Básicas */
+.perfil-info-basica {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.perfil-foto-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.perfil-foto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #7c428f;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(124,66,143,0.3);
+}
+
+.perfil-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: 4px solid #7c428f;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c428f;
+  font-size: 4rem;
+  box-shadow: 0 4px 12px rgba(124,66,143,0.3);
+}
+
+.btn-editar-foto {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #7c428f;
+  color: #fff !important;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.btn-editar-foto:hover {
+  background: #5a2e6e;
+}
+
+.perfil-detalhes {
+  flex: 1;
+}
+
+.perfil-detalhes h2 {
+  font-size: 1.8rem;
+  color: #7c428f;
+  margin-bottom: 1rem;
+}
+
+.perfil-detalhes p {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: #444;
+  font-size: 1rem;
+}
+
+.btn-editar-perfil {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #7c428f;
+  color: #fff !important;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: none;
+  margin-top: 1rem;
+}
+
+.btn-editar-perfil:hover {
+  background: #5a2e6e;
+}
+
+/* Seção de Relatório/Atividades */
+.perfil-relatorio {
+  margin-bottom: 2rem;
+}
+
+.perfil-relatorio h2 {
+  font-size: 1.4rem;
+  color: #7c428f;
+  margin-bottom: 1rem;
+}
+
+.relatorio-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.relatorio-card {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(124, 66, 143, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.relatorio-card:hover {
+  box-shadow: 0 4px 15px rgba(124, 66, 143, 0.15);
+}
+
+.relatorio-icon {
+  font-size: 2.5rem;
+  color: #7c428f;
+  margin-bottom: 1rem;
+  display: block;
+  text-align: center;
+}
+
+.relatorio-card h3 {
+  font-size: 1.2rem;
+  color: #7c428f;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.relatorio-card p {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+  text-align: center;
+}
+
+.relatorio-lista-mini {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.mini-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #444;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+.mini-item:hover {
+  border-color: #7c428f;
+}
+
+.mini-item img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btn-ver-mais {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #7c428f;
+  color: #fff !important;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: none;
+  margin-top: 1rem;
+}
+
+.btn-ver-mais:hover {
+  background: #5a2e6e;
+}
+
+/* Seção de Ações */
+.perfil-acoes {
+  text-align: center;
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #dc3545;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-logout:hover {
+  background: #c82333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .perfil-usuario-main {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+  
+  .perfil-info-basica {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .perfil-foto,
+  .perfil-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .perfil-avatar {
+    font-size: 3rem;
+  }
+  
+  .relatorio-cards {
+    grid-template-columns: 1fr;
+  }
+}
