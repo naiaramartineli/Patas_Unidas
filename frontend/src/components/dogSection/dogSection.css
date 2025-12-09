@@ -1,0 +1,251 @@
+.dogSection-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 4vw 2vw 3vw;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 2vw;
+    position: relative;
+}
+
+.dogSection-text {
+    max-width: 480px;
+    z-index: 3 !important;
+    padding-bottom: 1rem;
+    margin-top: 0;
+    position: relative;
+}
+
+.dogSection-text h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--gray-dark);
+    font-weight: 400 !important;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
+    line-height: 1.1;
+}
+
+.dogSection-text h1 + h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.dogSection-image {
+    position: relative;
+    width: 340px;
+    max-width: 45vw;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    margin-top: 80px !important;
+}
+
+.dogSection-image img {
+    width: 600px !important;
+    height: 600px !important;
+    border-radius: 15%;
+    transform: rotate(1deg) !important;
+    margin-left: -40px !important;
+    margin-top: -174px !important;
+    transition: all var(--transition-medium);
+    position: relative;
+    z-index: 2;
+}
+
+.dogSection-image::before {
+    content: '';
+    position: absolute;
+    width: 950px !important;
+    height: 850px !important;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    top: -40% !important;
+    left: 53% !important;
+    transform: translate(-50%, -30%);
+    z-index: 0;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+    transition: all var(--transition-medium);
+}
+
+.dogSection-textButtonContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.dogSection-textButtonContainer button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 20px !important;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color var(--transition-medium);
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.dogSection-textButtonContainer button:hover {
+    background-color: var(--primary-dark);
+}
+
+@media (max-width: 1024px) {
+    .dogSection-container {
+        padding: 200px !important;
+        width: 300px !important;
+    }
+    
+    .dogSection-image::before {
+        left: 50% !important;
+        top: -250% !important;
+        width: 1000px !important;
+        height: 1050px !important;
+        z-index: 0;
+    }
+    
+    .dogSection-image img {
+        width: 600px !important;
+        height: 500px !important;
+        margin-left: 0 !important;
+        margin-top: -290px !important;
+        position: relative;
+        z-index: 3 !important;
+    }
+    
+    .dogSection-text {
+        max-width: 800px !important;
+        padding: 30px !important;
+        position: relative;
+        top: -90px;
+        z-index: 3 !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: break-word;
+        text-align: center !important;
+    }
+
+    .dogSection-image {
+        width: 300px;
+        max-width: 90vw !important;
+    }
+
+    .dogSection-textButtonContainer {
+        margin-top: 15px;
+        gap: 0.6rem;
+        justify-content: center;
+    }
+
+    .dogSection-textButtonContainer button {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1rem !important;
+        min-width: 110px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .dogSection-container {
+        padding: 200px !important;
+        width: 300px !important;
+    }
+    
+    .dogSection-image::before {
+        left: 50% !important;
+        top: -250% !important;
+        width: 1000px !important;
+        height: 1050px !important;
+        z-index: 0;
+    }
+    
+    .dogSection-image img {
+        width: 600px !important;
+        height: 500px !important;
+        margin-left: 0 !important;
+        margin-top: -290px !important;
+        position: relative;
+        z-index: 3 !important;
+    }
+    
+    .dogSection-text {
+        max-width: 800px !important;
+        padding: 30px !important;
+        position: relative;
+        top: -90px;
+        z-index: 3 !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: break-word;
+        text-align: center !important;
+    }
+
+    .dogSection-image {
+        width: 300px;
+        max-width: 90vw !important;
+    }
+
+    .dogSection-textButtonContainer {
+        margin-top: 15px;
+        gap: 0.6rem;
+        justify-content: center;
+    }
+
+    .dogSection-textButtonContainer button {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1rem !important;
+        min-width: 110px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .dogSection-container {
+        flex-direction: column;
+        padding: 2vw 2vw 4vw;
+        max-width: 100vw;
+    }
+
+    .dogSection-text {
+        max-width: 100%;
+        padding: 0 0 1.5rem 0;
+        text-align: center;
+    }
+
+    .dogSection-image {
+        width: 90vw;
+        max-width: 220px;
+        margin: 0 auto;
+    }
+
+    .dogSection-image img {
+        width: 180px !important;
+        height: 180px !important;
+        margin-left: 0;
+        margin-top: -25px !important;
+    }
+
+    .dogSection-image::before {
+        width: 120px !important;
+        height: 120px !important;
+        top: -20% !important;
+        left: 50% !important;
+    }
+
+    .dogSection-textButtonContainer {
+        justify-content: center;
+        margin-top: 15px;
+        gap: 0.5rem;
+    }
+
+    .dogSection-textButtonContainer button {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem !important;
+        min-width: 90px;
+    }
+}

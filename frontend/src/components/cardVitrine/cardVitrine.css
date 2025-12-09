@@ -1,0 +1,96 @@
+.vitrine-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.vitrine-card {
+    position: relative;
+    width: 270px;
+    height: 380px;
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: transform var(--transition-medium);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+}
+
+.vitrine-card:hover {
+    transform: translateY(-5px);
+}
+
+.vitrine-card-nome {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-text);
+    margin-bottom: 20px;
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+    transition: opacity var(--transition-medium);
+}
+
+.vitrine-card:hover .vitrine-card-nome {
+    opacity: 0;
+}
+
+.vitrine-card-img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 0;
+    margin: auto;
+    transition: opacity var(--transition-medium);
+}
+
+.vitrine-card:hover .vitrine-card-img {
+    opacity: 0;
+}
+
+.vitrine-card-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    opacity: 0;
+    background-color: var(--white);
+    padding: 20px;
+    width: 90%;
+    text-align: left;
+    line-height: 1.6;
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
+    z-index: 10;
+}
+
+.vitrine-card:hover .vitrine-card-info {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.patinha-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 80px;
+    height: 80px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.vitrine-card-info p {
+    margin-bottom: 6px;
+}
+
+.info-label {
+    font-weight: bold;
+    margin-right: 4px;
+    display: inline-block;
+    min-width: 50px;
+}
