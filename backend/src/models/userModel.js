@@ -1,5 +1,5 @@
-import db from '../config/db.js';
-import Endereco from './enderecoModel.js';
+const db = require('../config/db');
+const Endereco = require ('./enderecoModel.js');
 
 class Usuario {
     
@@ -396,4 +396,4 @@ class Usuario {
     }
 }
 
-export default Usuario;
+module.exports = Usuario;

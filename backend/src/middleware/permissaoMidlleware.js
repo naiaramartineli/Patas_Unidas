@@ -1,4 +1,4 @@
-const Permissao = require('../models/permissaoModel');
+const Permissao = require('../models/permissoesModel');
 
 // Middleware para verificar permissão de adotar
 exports.canAdopt = async (req, res, next) => {

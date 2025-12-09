@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import Usuario from '../models/userModel.js';
+const jwt = require ('jsonwebtoken');
+const Usuario = require ('../models/userModel.js');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersegredo_patas_unidas_2025_@SEGURO';
 
@@ -11,7 +11,7 @@ const logAuthAttempt = (userId, code, success, details = '') => {
 };
 
 // Middleware para verificar autenticação
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
         
@@ -104,7 +104,7 @@ export const verifyToken = async (req, res, next) => {
 };
 
 // Middleware para verificar se é administrador
-export const isAdmin = (req, res, next) => {
+const isAdmin = (req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ 
             success: false,
@@ -128,7 +128,7 @@ export const isAdmin = (req, res, next) => {
 };
 
 // Middleware para verificar se é dono do recurso ou admin
-export const isOwnerOrAdmin = (resourceUserIdField = 'id_usuario') => {
+const isOwnerOrAdmin = (resourceUserIdField = 'id_usuario') => {
     return (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({ 
@@ -189,7 +189,7 @@ export const isOwnerOrAdmin = (resourceUserIdField = 'id_usuario') => {
 };
 
 // Middleware para logging de requisições
-export const requestLogger = (req, res, next) => {
+const requestLogger = (req, res, next) => {
     const timestamp = new Date().toISOString();
     const method = req.method;
     const url = req.originalUrl;
@@ -207,7 +207,7 @@ export const requestLogger = (req, res, next) => {
 };
 
 // Exportação padrão
-export default {
+module.exports = {
     verifyToken,
     isAdmin,
     isOwnerOrAdmin,

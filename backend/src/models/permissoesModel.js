@@ -1,5 +1,5 @@
 // models/permissoesModel.js
-import db from '../config/db.js';
+const db = require ('../config/db.js');
 
 class PermissaoModel {
     // Buscar permissão por ID
@@ -114,4 +114,4 @@ class PermissaoModel {
     }
 }
 
-export default PermissaoModel;
+module.exports = PermissaoModel;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const enderecoController = require('../controllers/enderecoController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Rotas públicas (busca por CEP, cidade, etc.)
 router.get('/cep/:cep', enderecoController.getAddressByCep);

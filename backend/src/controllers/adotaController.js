@@ -1,5 +1,4 @@
-import AdotaModel from '../models/adotaModel.js';
-
+const AdotaModel = require('../models/adotaModel.js')
 /**
  * Controlador para gerenciar adoções
  */
@@ -584,16 +583,16 @@ class AdotaController {
 }
 
 // Exportação
-export default AdotaController;
-
-// Exportação para compatibilidade com as rotas existentes
-export const solicitarAdocao = (req, res) => AdotaController.solicitarAdocao(req, res);
-export const listarMinhasAdocoes = (req, res) => AdotaController.listarMinhasAdocoes(req, res);
-export const listarSolicitacoes = (req, res) => AdotaController.listarSolicitacoes(req, res);
-export const buscarAdocao = (req, res) => AdotaController.buscarAdocao(req, res);
-export const atualizarSolicitacao = (req, res) => AdotaController.atualizarAdocao(req, res);
-export const cancelarAdocao = (req, res) => AdotaController.cancelarAdocao(req, res);
-export const aprovarAdocao = (req, res) => AdotaController.aprovarAdocao(req, res);
-export const recusarAdocao = (req, res) => AdotaController.recusarAdocao(req, res);
-export const buscarEstatisticas = (req, res) => AdotaController.buscarEstatisticas(req, res);
-export const verificarAdocao = (req, res) => AdotaController.verificarAdocao(req, res);
+module.exports = {
+    ...AdotaController,
+    solicitarAdocao: (req, res) => adotaController.solicitarAdocao(req, res),
+    listarMinhasAdocoes: (req, res) => adotaController.listarMinhasAdocoes(req, res),
+    listarSolicitacoes: (req, res) => adotaController.listarSolicitacoes(req, res),
+    buscarAdocao: (req, res) => adtaController.buscarAdocao(req, res),
+    atualizarSolicitacao: (req, res) => adotaController.atualizarAdocao(req, res),
+    cancelarAdocao: (req, res) => adotaController.cancelarAdocao(req, res),
+    aprovarAdocao: (req, res) => adotaController.aprovarAdocao(req, res),
+    recusarAdocao: (req, res) => adotaController.recusarAdocao(req, res),
+    buscarEstatisticas: (req, res) => adotaController.buscarEstatisticas(req, res),
+    verificarAdocao: (req, res) => adotaController.verificarAdocao(req, res)
+};

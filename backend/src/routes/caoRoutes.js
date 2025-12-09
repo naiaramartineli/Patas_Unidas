@@ -3,8 +3,8 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const caoController = require('../controllers/caoController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const permissaoMiddleware = require('../middlewares/permissaoMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const permissaoMiddleware = require('../middleware/permissaoMidlleware');
 
 // Configuração do multer para upload de fotos
 const storage = multer.diskStorage({
