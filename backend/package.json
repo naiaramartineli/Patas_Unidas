@@ -28,6 +28,7 @@
   "devDependencies": {
     "bootstrap": "^5.3.8",
     "eslint": "^9.39.1",
-    "nodemon": "^3.1.0"
+    "nodemo": "^1.0.0",
+    "nodemon": "^3.1.11"
   }
 }
